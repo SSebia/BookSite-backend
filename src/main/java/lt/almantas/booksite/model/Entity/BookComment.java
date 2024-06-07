@@ -4,10 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
-@NoArgsConstructor
 @Entity
 @Table(name = "\"comments\"")
+@Data
 public class BookComment {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

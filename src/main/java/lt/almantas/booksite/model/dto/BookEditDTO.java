@@ -3,7 +3,7 @@ package lt.almantas.booksite.model.dto;
 import lombok.Data;
 
 @Data
-public class BookCreateDTO {
+public class BookEditDTO {
     private String title;
     private String description;
     private String isbn;

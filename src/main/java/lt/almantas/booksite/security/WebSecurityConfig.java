@@ -31,6 +31,10 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.POST,"/api/books/add").hasAuthority(Roles.ADMIN.getRoleName())
+                        .requestMatchers(HttpMethod.POST,"/api/books/edit/**").hasAuthority(Roles.ADMIN.getRoleName())
+                        .requestMatchers(HttpMethod.POST,"/api/books/delete/**").hasAuthority(Roles.ADMIN.getRoleName())
+                        .requestMatchers(HttpMethod.POST,"/api/category/**").hasAuthority(Roles.ADMIN.getRoleName())
                         .requestMatchers(HttpMethod.POST,"/api/books/**").hasAnyAuthority(Roles.USER.getRoleName(), Roles.ADMIN.getRoleName())
                         .requestMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
                         .anyRequest().authenticated())

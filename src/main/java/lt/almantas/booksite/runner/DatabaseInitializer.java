@@ -17,17 +17,25 @@ public class DatabaseInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (userRepository.findByUsername("admin").isEmpty()) {
+        if (userRepository.findByUsername("admin").isEmpty() && userRepository.findByUsername("user").isEmpty()) {
             User adminUser = new User();
+            User normalUser = new User();
+
             adminUser.setRoleID(Roles.ADMIN.getRoleId());
+            normalUser.setRoleID(Roles.USER.getRoleId());
 
             adminUser.setUsername("admin");
             adminUser.setEmail("admin@gmail.com");
 
+            normalUser.setUsername("user");
+            normalUser.setEmail("user@gmail.com");
+
             BCrypt bcrypt = new BCrypt();
             adminUser.setPassword(bcrypt.hashPassword("admin"));
+            normalUser.setPassword(bcrypt.hashPassword("user"));
 
             userRepository.save(adminUser);
+            userRepository.save(normalUser);
         }
     }
 }
