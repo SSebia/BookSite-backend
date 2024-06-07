@@ -48,7 +48,7 @@ public class UserService {
             }
             userLoginDTO.setToken(tokenProvider.generateToken(foundUser));
         } catch(IllegalArgumentException e) {
-            userLoginDTO.setMessage(e.getMessage());
+            return userLoginDTO;
         }
         return userLoginDTO;
     }

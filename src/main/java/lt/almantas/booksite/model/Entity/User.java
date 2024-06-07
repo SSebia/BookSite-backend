@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "\"user\"")
@@ -20,6 +21,9 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private int roleID;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookComment> comments;
 
     @Transient
     private Collection<? extends GrantedAuthority> authorities;

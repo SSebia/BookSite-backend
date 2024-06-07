@@ -17,8 +17,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
-
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -32,12 +30,9 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         return http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/error", "/csrf", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**", "/authenticate").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/projects").hasAnyAuthority(Roles.USER.getRoleName(), Roles.ADMIN.getRoleName())
-                        .requestMatchers(HttpMethod.POST,"/api/login").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/register").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/books/**").hasAnyAuthority(Roles.USER.getRoleName(), Roles.ADMIN.getRoleName())
+                        .requestMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
