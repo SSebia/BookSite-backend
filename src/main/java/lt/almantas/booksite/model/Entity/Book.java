@@ -1,5 +1,6 @@
 package lt.almantas.booksite.model.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lt.almantas.booksite.model.dto.BookCreateDTO;
@@ -23,6 +24,7 @@ public class Book {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
+    @JsonManagedReference
     private BookCategory category;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)

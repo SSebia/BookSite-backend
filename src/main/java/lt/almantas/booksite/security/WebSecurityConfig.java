@@ -36,6 +36,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/api/books/delete/**").hasAuthority(Roles.ADMIN.getRoleName())
                         .requestMatchers(HttpMethod.POST,"/api/category/**").hasAuthority(Roles.ADMIN.getRoleName())
                         .requestMatchers(HttpMethod.POST,"/api/books/**").hasAnyAuthority(Roles.USER.getRoleName(), Roles.ADMIN.getRoleName())
+                        .requestMatchers(HttpMethod.POST,"/api/token/verify").hasAnyAuthority(Roles.USER.getRoleName(), Roles.ADMIN.getRoleName())
                         .requestMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

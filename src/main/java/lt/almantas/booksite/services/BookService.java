@@ -17,7 +17,10 @@ public class BookService {
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
 
-    public Iterable<Book> getBooks(Integer catID) {
+    public List<Book> getBooks(Integer catID) {
+        if (catID != null) {
+            return bookRepository.findAllByCategory_Id(catID);
+        }
         return bookRepository.findAll();
     }
 

@@ -15,6 +15,10 @@ import java.util.Optional;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
+    public Iterable<BookCategory> getCategories() {
+        return categoryRepository.findAll();
+    }
+
     public BookCategory createCategory(BookCategoryCreateDTO bookCategoryCreateDTO) {
         BookCategory bookCategory = new BookCategory(bookCategoryCreateDTO);
         return categoryRepository.save(bookCategory);

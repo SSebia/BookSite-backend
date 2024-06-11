@@ -1,5 +1,6 @@
 package lt.almantas.booksite.model.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lt.almantas.booksite.model.dto.BookCategoryCreateDTO;
@@ -17,6 +18,7 @@ public class BookCategory {
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Book> books;
 
     public BookCategory(BookCategoryCreateDTO bookCategoryCreateDTO) {

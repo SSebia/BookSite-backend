@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class TokenController {
     @PostMapping("/verify")
-    public ResponseEntity<Void> verifyToken(@RequestBody String token) {
+    public ResponseEntity<Void> verifyToken() {
         // Nes JwtAuthenticationFilter jau patikrino tokeną, todėl čia nieko nedarysime
         return new ResponseEntity<>(HttpStatus.OK);
     }

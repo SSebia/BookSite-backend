@@ -25,8 +25,8 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Book>> getBooks(@RequestParam(required = false, name = "catID") Integer catID) {
-        Iterable<Book> books = bookService.getBooks(catID);
+    public ResponseEntity<List<Book>> getBooks(@RequestParam(required = false, name = "catID") Integer catID) {
+        List<Book> books = bookService.getBooks(catID);
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 

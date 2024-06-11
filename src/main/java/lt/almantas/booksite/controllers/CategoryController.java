@@ -22,6 +22,12 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    @GetMapping
+    public ResponseEntity<Iterable<BookCategory>> getCategories() {
+        Iterable<BookCategory> categories = categoryService.getCategories();
+        return new ResponseEntity<>(categories, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<BookCategory> createCategory(@RequestBody BookCategoryCreateDTO bookCategoryCreateDTO) {
         BookCategory createdBookCategory = categoryService.createCategory(bookCategoryCreateDTO);
