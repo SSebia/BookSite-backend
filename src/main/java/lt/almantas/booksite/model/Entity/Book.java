@@ -19,6 +19,8 @@ public class Book {
     private String title;
     private String description;
     private String isbn;
+    @Lob
+    @Column(length = 100000)
     private String base64;
     private int pages;
 
