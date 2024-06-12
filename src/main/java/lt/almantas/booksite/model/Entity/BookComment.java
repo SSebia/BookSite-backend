@@ -1,6 +1,6 @@
 package lt.almantas.booksite.model.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,12 +14,13 @@ public class BookComment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     @JoinColumn(name = "book_id")
+    @JsonBackReference
     private Book book;
 }

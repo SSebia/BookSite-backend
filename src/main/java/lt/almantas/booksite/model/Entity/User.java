@@ -1,5 +1,6 @@
 package lt.almantas.booksite.model.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lt.almantas.booksite.model.fdto.UserRegisterFDTO;
@@ -23,12 +24,15 @@ public class User implements UserDetails {
     private int roleID;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<BookComment> comments;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<FavoriteBook> favoriteBooks;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<BookRating> bookRatings;
 
     @Transient
@@ -42,6 +46,10 @@ public class User implements UserDetails {
 
     public User() {
 
+    }
+
+    public void addComment(BookComment bookComment) {
+        comments.add(bookComment);
     }
 
     @Override

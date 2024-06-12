@@ -28,12 +28,15 @@ public class Book {
     private BookCategory category;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<BookComment> comments;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<FavoriteBook> favoritedByUsers;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<BookRating> bookRatings;
 
     public Book(BookCreateDTO bookCreateDTO) {
@@ -49,5 +52,17 @@ public class Book {
 
     public Book() {
 
+    }
+
+    public void addComment(BookComment bookComment) {
+        comments.add(bookComment);
+    }
+
+    public void addFavorite(FavoriteBook favoriteBook) {
+        favoritedByUsers.add(favoriteBook);
+    }
+
+    public void addRating(BookRating bookRating) {
+        bookRatings.add(bookRating);
     }
 }

@@ -11,11 +11,14 @@ import lt.almantas.booksite.repositories.UserRepository;
 import lt.almantas.booksite.security.BCrypt;
 import lt.almantas.booksite.security.TokenProvider;
 import lt.almantas.booksite.utils.EmailValidator;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @RequiredArgsConstructor
@@ -23,6 +26,23 @@ import java.util.regex.Pattern;
 public class UserService {
     private final UserRepository userRepository;
     private final TokenProvider tokenProvider = new TokenProvider();
+
+    public User getCurrentLoggedInUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new IllegalArgumentException("User is not authenticated");
+        }
+
+        String username = authentication.getPrincipal().toString();
+        Optional<User> foundUser = userRepository.findByUsername(username);
+
+        if (!foundUser.isPresent()) {
+            throw new IllegalArgumentException("User not found");
+        }
+
+        return foundUser.get();
+    }
 
     public User getUserByUsername(String username) {
         User foundUser = userRepository.findByUsername(username).orElse(null);
